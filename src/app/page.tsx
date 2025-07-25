@@ -1,103 +1,130 @@
-import Image from "next/image";
+"use client";
+
+import { BackgroundLines } from "@/components/BackgroundLines";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { ProjectSection } from "@/components/sections/ProjectSection";
+import { TechSection } from "@/components/sections/TechSection";
+import { useCallback, useEffect, useRef, useState } from "react";
+
+// ===========================
+// MAIN PAGE COMPONENT
+// ===========================
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [currentSection, setCurrentSection] = useState(0);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+  const sections = [
+    "hero",
+    "about",
+    "kongsimakan",
+    "codequest",
+    "smartiq",
+    "tech",
+    "contact",
+  ];
+  const totalSections = sections.length;
+
+  // Debounced scroll handler
+  const handleScroll = useCallback(
+    (event: WheelEvent) => {
+      if (isScrolling) return;
+
+      setIsScrolling(true);
+
+      const direction = event.deltaY > 0 ? 1 : -1;
+
+      setCurrentSection((prev) => {
+        const next = prev + direction;
+        return Math.max(0, Math.min(totalSections - 1, next));
+      });
+
+      // Reset scrolling flag after animation completes
+      setTimeout(() => setIsScrolling(false), 1000);
+    },
+    [isScrolling, totalSections]
+  );
+
+  // Keyboard navigation
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (isScrolling) return;
+
+      if (event.key === "ArrowDown" || event.key === " ") {
+        event.preventDefault();
+        setIsScrolling(true);
+        setCurrentSection((prev) => Math.min(totalSections - 1, prev + 1));
+        setTimeout(() => setIsScrolling(false), 1000);
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setIsScrolling(true);
+        setCurrentSection((prev) => Math.max(0, prev - 1));
+        setTimeout(() => setIsScrolling(false), 1000);
+      }
+    },
+    [isScrolling, totalSections]
+  );
+
+  // Add event listeners
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    container.addEventListener("wheel", handleScroll, { passive: false });
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      container.removeEventListener("wheel", handleScroll);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleScroll, handleKeyDown]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="bg-black text-white overflow-hidden h-screen"
+      tabIndex={0}
+    >
+      {/* Fixed BackgroundLines for all sections */}
+      <div className="fixed inset-0 w-full h-full z-0">
+        <BackgroundLines className="w-full h-full opacity-30">
+          <div className="absolute inset-0 bg-black/20" />
+        </BackgroundLines>
+      </div>
+
+      {/* Section Navigation Indicator */}
+      <div className="flex flex-col fixed right-8 top-1/2 transform -translate-y-1/2 z-[100] gap-4">
+        {sections.map((section, index) => (
+          <button
+            key={section}
+            onClick={() => {
+              if (!isScrolling) {
+                setIsScrolling(true);
+                setCurrentSection(index);
+                setTimeout(() => setIsScrolling(false), 1000);
+              }
+            }}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              currentSection === index
+                ? "bg-white scale-125"
+                : "bg-white/30 hover:bg-white/60"
+            }`}
+            title={section.charAt(0).toUpperCase() + section.slice(1)}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        ))}
+      </div>
+
+      {/* Sections */}
+      <HeroSection isActive={currentSection === 0} />
+      <AboutSection isActive={currentSection === 1} />
+      <ProjectSection isActive={currentSection === 2} projectNumber={1} />
+      <ProjectSection isActive={currentSection === 3} projectNumber={2} />
+      <ProjectSection isActive={currentSection === 4} projectNumber={3} />
+      <TechSection isActive={currentSection === 5} />
+      <ContactSection isActive={currentSection === 6} />
     </div>
   );
 }
