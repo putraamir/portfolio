@@ -137,7 +137,7 @@ export const ProjectSection = ({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -100, scale: 0.9 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 py-20 px-4 flex items-center z-30"
+          className="relative py-20 px-4 flex items-center z-30 min-h-screen"
         >
           <div className="max-w-6xl mx-auto w-full">
             <div
@@ -178,7 +178,7 @@ export const ProjectSection = ({
                   {project.title}
                 </motion.h3>
                 <motion.p
-                  className="text-gray-300 text-lg leading-relaxed"
+                  className="text-gray-300 text-base md:text-lg leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
@@ -186,7 +186,7 @@ export const ProjectSection = ({
                   {project.description}
                 </motion.p>
                 <motion.div
-                  className="flex flex-wrap gap-3"
+                  className="flex flex-wrap gap-2 md:gap-3"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
@@ -201,7 +201,7 @@ export const ProjectSection = ({
                         type: "spring",
                         damping: 20,
                       }}
-                      className="px-4 py-2 bg-gray-800/50 text-gray-300 rounded-full text-sm border border-gray-700 hover:bg-gray-700/50 transition-all duration-300"
+                      className="px-3 py-1 md:px-4 md:py-2 bg-gray-800/50 text-gray-300 rounded-full text-xs md:text-sm border border-gray-700 hover:bg-gray-700/50 transition-all duration-300"
                     >
                       {tech}
                     </motion.span>
@@ -212,7 +212,7 @@ export const ProjectSection = ({
               <motion.div
                 className={`${
                   projectNumber % 2 === 0 ? "lg:col-start-1 lg:row-start-1" : ""
-                } flex items-center justify-center`}
+                } flex items-center justify-center mt-8 lg:mt-0`}
                 initial={{
                   opacity: 0,
                   x: projectNumber % 2 === 1 ? 100 : -100,
@@ -242,7 +242,7 @@ export const ProjectSection = ({
                 ) : (
                   // Multiple mobile screens grid
                   <motion.div
-                    className="grid grid-cols-2 gap-4 max-w-lg mx-auto"
+                    className="grid grid-cols-2 gap-2 md:gap-4 max-w-sm md:max-w-lg mx-auto"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.6, type: "spring", damping: 20 }}
