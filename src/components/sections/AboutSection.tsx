@@ -19,18 +19,18 @@ export const AboutSection = ({ isActive }: SectionProps) => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -100, scale: 0.9 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 py-20 px-4 flex items-center z-20"
+          className="relative py-20 px-4 flex items-center z-20 min-h-screen"
         >
           <div className="max-w-6xl mx-auto w-full">
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
-              className="text-center mb-16"
+              className="text-center mb-12 md:mb-16"
             >
               <motion.h2
                 variants={slideUpStagger}
-                className="text-4xl md:text-6xl font-bold text-white mb-6"
+                className="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6"
               >
                 About Me
               </motion.h2>
@@ -53,13 +53,13 @@ export const AboutSection = ({ isActive }: SectionProps) => {
                 }}
               >
                 <motion.h3
-                  className="text-2xl md:text-3xl font-semibold text-white mb-6"
+                  className="text-2xl md:text-3xl font-semibold text-white mb-4"
                   variants={slideUpStagger}
                 >
                   Crafting Digital Experiences
                 </motion.h3>
                 <motion.p
-                  className="text-gray-300 text-lg leading-relaxed mb-6"
+                  className="text-gray-300 text-base md:text-lg leading-relaxed mb-4"
                   variants={slideUpStagger}
                 >
                   I&apos;m a passionate software engineer who loves turning
@@ -69,7 +69,7 @@ export const AboutSection = ({ isActive }: SectionProps) => {
                   beautiful applications.
                 </motion.p>
                 <motion.p
-                  className="text-gray-300 text-lg leading-relaxed"
+                  className="text-gray-300 text-base md:text-lg leading-relaxed"
                   variants={slideUpStagger}
                 >
                   During my 6-month internship at Bitlab Digital and 3-month
@@ -99,12 +99,12 @@ export const AboutSection = ({ isActive }: SectionProps) => {
                     damping: 20,
                     stiffness: 100,
                   }}
-                  className="bg-gray-800/50 p-6 rounded-lg backdrop-blur-sm border border-gray-700 hover:bg-gray-800/70 transition-all duration-300"
+                  className="bg-gray-800/50 p-4 md:p-6 rounded-lg backdrop-blur-sm border border-gray-700 hover:bg-gray-800/70 transition-all duration-300"
                 >
-                  <h4 className="text-xl font-semibold text-white mb-3">
+                  <h4 className="text-lg md:text-xl font-semibold text-white mb-2">
                     🎓 Education
                   </h4>
-                  <p className="text-gray-300">
+                  <p className="text-gray-300 text-sm md:text-base">
                     Bachelor&apos;s Degree in Software Engineering
                   </p>
                 </motion.div>
@@ -116,12 +116,12 @@ export const AboutSection = ({ isActive }: SectionProps) => {
                     stiffness: 100,
                     delay: 0.1,
                   }}
-                  className="bg-gray-800/50 p-6 rounded-lg backdrop-blur-sm border border-gray-700 hover:bg-gray-800/70 transition-all duration-300"
+                  className="bg-gray-800/50 p-4 md:p-6 rounded-lg backdrop-blur-sm border border-gray-700 hover:bg-gray-800/70 transition-all duration-300"
                 >
-                  <h4 className="text-xl font-semibold text-white mb-3">
+                  <h4 className="text-lg md:text-xl font-semibold text-white mb-2">
                     💡 Focus Areas
                   </h4>
-                  <p className="text-gray-300">
+                  <p className="text-gray-300 text-sm md:text-base">
                     Full Stack Development, Mobile/Web Apps, UI/UX Design
                   </p>
                 </motion.div>
@@ -133,12 +133,12 @@ export const AboutSection = ({ isActive }: SectionProps) => {
                     stiffness: 100,
                     delay: 0.2,
                   }}
-                  className="bg-gray-800/50 p-6 rounded-lg backdrop-blur-sm border border-gray-700 hover:bg-gray-800/70 transition-all duration-300"
+                  className="bg-gray-800/50 p-4 md:p-6 rounded-lg backdrop-blur-sm border border-gray-700 hover:bg-gray-800/70 transition-all duration-300"
                 >
-                  <h4 className="text-xl font-semibold text-white mb-3">
+                  <h4 className="text-lg md:text-xl font-semibold text-white mb-2">
                     🚀 Mission
                   </h4>
-                  <p className="text-gray-300">
+                  <p className="text-gray-300 text-sm md:text-base">
                     Building user-centric applications that solve real problems
                   </p>
                 </motion.div>

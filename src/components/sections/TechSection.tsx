@@ -78,16 +78,16 @@ export const TechSection = ({ isActive }: SectionProps) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -50 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="fixed inset-0 py-20 px-4 flex items-center z-50"
+          className="relative py-20 px-4 flex items-center z-50 min-h-screen"
         >
           <div className="max-w-6xl mx-auto w-full">
             {/* Header with staggered animation */}
-            <div className="text-center mb-16">
+            <div className="text-center mb-12 md:mb-16">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-4xl md:text-6xl font-bold text-white mb-6"
+                className="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6"
               >
                 Tech Stack
               </motion.h2>
@@ -100,7 +100,7 @@ export const TechSection = ({ isActive }: SectionProps) => {
             </div>
 
             {/* Tech Cards Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {techCategories.map((category, index) => (
                 <motion.div
                   key={category.title}

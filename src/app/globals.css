@@ -24,7 +24,6 @@
   
   body {
     @apply bg-black text-white;
-    overflow-x: hidden;
   }
   
   /* Custom scrollbar for webkit browsers */

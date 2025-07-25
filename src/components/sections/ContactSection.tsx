@@ -28,7 +28,7 @@ export const ContactSection = ({ isActive }: SectionProps) => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -100, scale: 0.9 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 py-20 px-4 flex items-center z-60"
+          className="relative py-20 px-4 flex items-center z-60 min-h-screen"
         >
           <div className="max-w-4xl mx-auto w-full">
             <motion.div
@@ -39,7 +39,7 @@ export const ContactSection = ({ isActive }: SectionProps) => {
             >
               <motion.h2
                 variants={slideUpStagger}
-                className="text-4xl md:text-6xl font-bold text-white mb-6"
+                className="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6"
               >
                 Let&apos;s Build Something Amazing
               </motion.h2>
@@ -49,7 +49,7 @@ export const ContactSection = ({ isActive }: SectionProps) => {
               />
               <motion.p
                 variants={slideUpStagger}
-                className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto"
+                className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto"
               >
                 I&apos;m always excited to work on new projects and collaborate
                 with talented people. Let&apos;s discuss how we can bring your
@@ -71,7 +71,7 @@ export const ContactSection = ({ isActive }: SectionProps) => {
                   whileTap={{ scale: 0.95 }}
                   href={`mailto:${EMAIL}`}
                   onClick={handleMailClick}
-                  className="group relative px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="group relative px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl text-sm md:text-base"
                 >
                   Get In Touch
                   <span className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur"></span>
@@ -90,7 +90,7 @@ export const ContactSection = ({ isActive }: SectionProps) => {
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-8 py-4 border-2 border-gray-600 text-gray-300 font-semibold rounded-full hover:border-white hover:text-white transition-all duration-300"
+                  className="px-6 py-3 md:px-8 md:py-4 border-2 border-gray-600 text-gray-300 font-semibold rounded-full hover:border-white hover:text-white transition-all duration-300 text-sm md:text-base"
                 >
                   View GitHub
                 </motion.a>
