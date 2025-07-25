@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     description:
       "Fresh graduate software engineer specializing in React, React Native, and modern web technologies.",
   },
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
 };
 
