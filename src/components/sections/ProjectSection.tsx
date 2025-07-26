@@ -69,6 +69,7 @@ export const ProjectSection = ({
   const project = projects[projectNumber - 1];
 
   const isMD = useMediaQuery({ query: "(max-width: 768px)" });
+  const isLG = useMediaQuery({ query: "(max-width: 1024px)" });
 
   // Device Mockup Component
   const DeviceMockup = ({
@@ -280,8 +281,9 @@ export const ProjectSection = ({
                       }}
                     >
                       <div className="flex gap-6 pb-4">
-                        {project.images.map(
-                          (image: string, imgIndex: number) => (
+                        {project.images
+                          .slice(0, isLG ? 4 : 1)
+                          .map((image: string, imgIndex: number) => (
                             <motion.div
                               key={imgIndex}
                               className="flex-shrink-0"
@@ -303,8 +305,7 @@ export const ProjectSection = ({
                                 statusbarColor={project.statusbarColor}
                               />
                             </motion.div>
-                          )
-                        )}
+                          ))}
                         {/* Peek effect for multiple web images */}
                         {project.images.length > 1 && (
                           <div className="w-32 flex-shrink-0"></div>
