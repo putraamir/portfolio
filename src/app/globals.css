@@ -26,7 +26,6 @@
     @apply bg-black text-white;
   }
   
-  /* Custom scrollbar for webkit browsers */
   ::-webkit-scrollbar {
     width: 0px;
     background: transparent;
@@ -36,6 +35,15 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
   }
 }
 

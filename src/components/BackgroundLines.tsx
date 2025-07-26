@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import React from "react";
 
 export const BackgroundLines = ({
@@ -27,7 +27,7 @@ const pathVariants = {
   animate: {
     strokeDashoffset: 0,
     strokeDasharray: "20 800",
-    opacity: [0, 1, 1, 0],
+    opacity: [0, 0.8, 0.8, 0],
   },
 };
 
@@ -99,18 +99,18 @@ const SVG = ({
         <motion.path
           d={path}
           stroke={colors[idx]}
-          strokeWidth="2.3"
+          strokeWidth="3.5"
           strokeLinecap="round"
           variants={pathVariants}
           initial="initial"
           animate="animate"
           transition={{
-            duration: svgOptions?.duration || 10,
+            duration: svgOptions?.duration || 4,
             ease: "linear",
             repeat: Infinity,
             repeatType: "loop",
-            delay: Math.floor(Math.random() * 10),
-            repeatDelay: Math.floor(Math.random() * 10 + 2),
+            delay: Math.floor(Math.random() * 3),
+            repeatDelay: Math.floor(Math.random() * 2 + 1),
           }}
           key={`path-first-${idx}`}
         />
@@ -121,18 +121,18 @@ const SVG = ({
         <motion.path
           d={path}
           stroke={colors[idx]}
-          strokeWidth="2.3"
+          strokeWidth="3.5"
           strokeLinecap="round"
           variants={pathVariants}
           initial="initial"
           animate="animate"
           transition={{
-            duration: svgOptions?.duration || 10,
+            duration: svgOptions?.duration || 4,
             ease: "linear",
             repeat: Infinity,
             repeatType: "loop",
-            delay: Math.floor(Math.random() * 10),
-            repeatDelay: Math.floor(Math.random() * 10 + 2),
+            delay: Math.floor(Math.random() * 3),
+            repeatDelay: Math.floor(Math.random() * 2 + 1),
           }}
           key={`path-second-${idx}`}
         />

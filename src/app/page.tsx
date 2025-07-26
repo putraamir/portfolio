@@ -87,15 +87,15 @@ export default function Home() {
   return (
     <div
       ref={containerRef}
-      className={`bg-black text-white ${
+      className={`bg-black text-white overflow-x-hidden ${
         !isMobile ? "overflow-hidden h-screen" : ""
       }`}
       tabIndex={0}
     >
       {/* Fixed BackgroundLines for all sections */}
       <div className="fixed inset-0 w-full h-full z-0">
-        <BackgroundLines className="w-full h-full opacity-30">
-          <div className="absolute inset-0 bg-black/20" />
+        <BackgroundLines className="w-full h-full opacity-60">
+          <div className="absolute inset-0 bg-black/10" />
         </BackgroundLines>
       </div>
 
@@ -124,23 +124,44 @@ export default function Home() {
       )}
 
       {/* Sections */}
-      <div className={isMobile ? "flex flex-col" : ""}>
-        <HeroSection isActive={isMobile || currentSection === 0} />
-        <AboutSection isActive={isMobile || currentSection === 1} />
-        <ProjectSection
-          isActive={isMobile || currentSection === 2}
-          projectNumber={1}
-        />
-        <ProjectSection
-          isActive={isMobile || currentSection === 3}
-          projectNumber={2}
-        />
-        <ProjectSection
-          isActive={isMobile || currentSection === 4}
-          projectNumber={3}
-        />
-        <TechSection isActive={isMobile || currentSection === 5} />
-        <ContactSection isActive={isMobile || currentSection === 6} />
+      <div
+        className={
+          isMobile
+            ? "flex flex-col overflow-y-auto overflow-x-hidden h-screen snap-y snap-mandatory"
+            : ""
+        }
+        style={isMobile ? { WebkitOverflowScrolling: "touch" } : {}}
+      >
+        <div className={isMobile ? "snap-start min-h-screen" : ""}>
+          <HeroSection isActive={isMobile || currentSection === 0} />
+        </div>
+        <div className={isMobile ? "snap-start min-h-screen" : ""}>
+          <AboutSection isActive={isMobile || currentSection === 1} />
+        </div>
+        <div className={isMobile ? "snap-start min-h-screen" : ""}>
+          <ProjectSection
+            isActive={isMobile || currentSection === 2}
+            projectNumber={1}
+          />
+        </div>
+        <div className={isMobile ? "snap-start min-h-screen" : ""}>
+          <ProjectSection
+            isActive={isMobile || currentSection === 3}
+            projectNumber={2}
+          />
+        </div>
+        <div className={isMobile ? "snap-start min-h-screen" : ""}>
+          <ProjectSection
+            isActive={isMobile || currentSection === 4}
+            projectNumber={3}
+          />
+        </div>
+        <div className={isMobile ? "snap-start min-h-screen" : ""}>
+          <TechSection isActive={isMobile || currentSection === 5} />
+        </div>
+        <div className={isMobile ? "snap-start min-h-screen" : ""}>
+          <ContactSection isActive={isMobile || currentSection === 6} />
+        </div>
       </div>
     </div>
   );

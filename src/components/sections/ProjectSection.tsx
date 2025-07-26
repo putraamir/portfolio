@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { AndroidMockup } from "react-device-mockup";
 import { Project, ProjectSectionProps } from "@/components/shared/types";
+import { useMediaQuery } from "react-responsive";
 
 export const ProjectSection = ({
   isActive,
@@ -54,7 +55,11 @@ export const ProjectSection = ({
       description:
         "A Learning Management System for SmartIQ, a tuition center that provides tuition for pre-school, primary and secondary school students.",
       tech: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Stripe"],
-      images: ["/SmartIQ/Screenshot 2025-07-25 232808.png"],
+      images: [
+        "/SmartIQ/Screenshot 2025-07-25 232808.png",
+        "/SmartIQ/Screenshot 2025-07-25 232844.png",
+        "/SmartIQ/Screenshot 2025-07-25 232928.png",
+      ],
       color: "from-purple-500 to-pink-600",
       statusbarColor: "#FFFFFF",
       type: "web",
@@ -62,6 +67,8 @@ export const ProjectSection = ({
   ];
 
   const project = projects[projectNumber - 1];
+
+  const isMD = useMediaQuery({ query: "(max-width: 768px)" });
 
   // Device Mockup Component
   const DeviceMockup = ({
@@ -91,7 +98,7 @@ export const ProjectSection = ({
                   alt={alt}
                   width={1800}
                   height={1125}
-                  className="object-contain w-full h-auto max-h-[900px]"
+                  className="object-contain w-full h-auto max-h-[160px]"
                 />
               </div>
             </div>
@@ -109,7 +116,7 @@ export const ProjectSection = ({
           className="flex justify-center"
         >
           <AndroidMockup
-            screenWidth={200}
+            screenWidth={isMD ? 150 : 200}
             frameColor="#1f2937"
             statusbarColor={statusbarColor}
             hideNavBar
@@ -118,8 +125,8 @@ export const ProjectSection = ({
             <Image
               src={image}
               alt={alt}
-              width={200}
-              height={400}
+              width={isMD ? 150 : 200}
+              height={isMD ? 300 : 400}
               className="object-cover w-full h-full"
             />
           </AndroidMockup>
@@ -137,11 +144,11 @@ export const ProjectSection = ({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -100, scale: 0.9 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="relative py-20 px-4 flex items-center z-30 min-h-screen"
+          className="relative px-4 flex items-center z-30 min-h-screen"
         >
           <div className="max-w-6xl mx-auto w-full">
             <div
-              className={`grid lg:grid-cols-2 gap-12 items-center ${
+              className={`grid lg:grid-cols-2 gap-4 xl:gap:12 items-center ${
                 projectNumber % 2 === 0 ? "lg:grid-flow-col-dense" : ""
               }`}
             >
@@ -186,33 +193,55 @@ export const ProjectSection = ({
                   {project.description}
                 </motion.p>
                 <motion.div
-                  className="flex flex-wrap gap-2 md:gap-3"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
                 >
-                  {project.tech.map((tech: string, techIndex: number) => (
-                    <motion.span
-                      key={tech}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{
-                        delay: 0.7 + techIndex * 0.05,
-                        type: "spring",
-                        damping: 20,
-                      }}
-                      className="px-3 py-1 md:px-4 md:py-2 bg-gray-800/50 text-gray-300 rounded-full text-xs md:text-sm border border-gray-700 hover:bg-gray-700/50 transition-all duration-300"
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
+                  <div
+                    className={`overflow-x-auto scrollbar-hide ${
+                      isMD ? "w-screen" : "w-full"
+                    }`}
+                    onWheel={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      const container = e.currentTarget;
+                      container.scrollLeft += e.deltaY > 0 ? 50 : -50;
+                    }}
+                    onTouchStart={(e) => {
+                      e.stopPropagation();
+                    }}
+                    onTouchMove={(e) => {
+                      e.stopPropagation();
+                    }}
+                    onTouchEnd={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <div className="flex gap-2 md:gap-3 md:flex-wrap pb-2 w-fit pr-12">
+                      {project.tech.map((tech: string, techIndex: number) => (
+                        <motion.span
+                          key={tech}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{
+                            delay: 0.7 + techIndex * 0.05,
+                            type: "spring",
+                            damping: 20,
+                          }}
+                          className="px-3 py-1 md:px-4 md:py-2 bg-gray-800/50 text-gray-300 rounded-full text-xs md:text-sm border border-gray-700 hover:bg-gray-700/50 transition-all duration-300 flex-shrink-0 whitespace-nowrap"
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
                 </motion.div>
               </motion.div>
 
               <motion.div
                 className={`${
                   projectNumber % 2 === 0 ? "lg:col-start-1 lg:row-start-1" : ""
-                } flex items-center justify-center mt-8 lg:mt-0`}
+                } flex items-center justify-center lg:mt-0`}
                 initial={{
                   opacity: 0,
                   x: projectNumber % 2 === 1 ? 100 : -100,
@@ -226,50 +255,155 @@ export const ProjectSection = ({
                 }}
               >
                 {project.type === "web" ? (
-                  // Single large image for web projects
+                  // Horizontal scrollable web images
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.6, type: "spring", damping: 20 }}
                   >
-                    <DeviceMockup
-                      image={project.images[0]}
-                      alt={`${project.title} screenshot`}
-                      type={project.type}
-                      statusbarColor={project.statusbarColor}
-                    />
+                    <div
+                      className="overflow-x-auto scrollbar-hide"
+                      onWheel={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const container = e.currentTarget;
+                        container.scrollLeft += e.deltaY > 0 ? 50 : -50;
+                      }}
+                      onTouchStart={(e) => {
+                        e.stopPropagation();
+                      }}
+                      onTouchMove={(e) => {
+                        e.stopPropagation();
+                      }}
+                      onTouchEnd={(e) => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      <div className="flex gap-6 pb-4">
+                        {project.images.map(
+                          (image: string, imgIndex: number) => (
+                            <motion.div
+                              key={imgIndex}
+                              className="flex-shrink-0"
+                              initial={{ opacity: 0, scale: 0.6, y: 20 }}
+                              animate={{ opacity: 1, scale: 1, y: 0 }}
+                              transition={{
+                                type: "spring",
+                                damping: 20,
+                                stiffness: 100,
+                                delay: 0.7 + imgIndex * 0.1,
+                              }}
+                            >
+                              <DeviceMockup
+                                image={image}
+                                alt={`${project.title} screenshot ${
+                                  imgIndex + 1
+                                }`}
+                                type={project.type}
+                                statusbarColor={project.statusbarColor}
+                              />
+                            </motion.div>
+                          )
+                        )}
+                        {/* Peek effect for multiple web images */}
+                        {project.images.length > 1 && (
+                          <div className="w-32 flex-shrink-0"></div>
+                        )}
+                      </div>
+                    </div>
                   </motion.div>
                 ) : (
-                  // Multiple mobile screens grid
-                  <motion.div
-                    className="grid grid-cols-2 gap-2 md:gap-4 max-w-sm md:max-w-lg mx-auto"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.6, type: "spring", damping: 20 }}
-                  >
-                    {project.images
-                      .slice(0, 4)
-                      .map((image: string, imgIndex: number) => (
-                        <motion.div
-                          key={imgIndex}
-                          initial={{ opacity: 0, scale: 0.6, y: 20 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          transition={{
-                            type: "spring",
-                            damping: 20,
-                            stiffness: 100,
-                            delay: 0.7 + imgIndex * 0.1,
-                          }}
-                        >
-                          <DeviceMockup
-                            image={image}
-                            alt={`${project.title} screenshot ${imgIndex + 1}`}
-                            type={project.type}
-                            statusbarColor={project.statusbarColor}
-                          />
-                        </motion.div>
-                      ))}
-                  </motion.div>
+                  <>
+                    {/* Mobile horizontal scroll on small screens */}
+                    <motion.div
+                      className="lg:hidden w-screen"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.6, type: "spring", damping: 20 }}
+                    >
+                      <div
+                        className="overflow-x-auto scrollbar-hide"
+                        onWheel={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          const container = e.currentTarget;
+                          container.scrollLeft += e.deltaY > 0 ? 50 : -50;
+                        }}
+                        onTouchStart={(e) => {
+                          e.stopPropagation();
+                        }}
+                        onTouchMove={(e) => {
+                          e.stopPropagation();
+                        }}
+                        onTouchEnd={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        <div className="flex gap-24 ml-24 -pr-24 pb-4">
+                          {project.images.map(
+                            (image: string, imgIndex: number) => (
+                              <motion.div
+                                key={imgIndex}
+                                className="flex-shrink-0 w-32"
+                                initial={{ opacity: 0, scale: 0.6, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                transition={{
+                                  type: "spring",
+                                  damping: 20,
+                                  stiffness: 100,
+                                  delay: 0.7 + imgIndex * 0.1,
+                                }}
+                              >
+                                <DeviceMockup
+                                  image={image}
+                                  alt={`${project.title} screenshot ${
+                                    imgIndex + 1
+                                  }`}
+                                  type={project.type}
+                                  statusbarColor={project.statusbarColor}
+                                />
+                              </motion.div>
+                            )
+                          )}
+                          {/* Peek effect - add some padding to show half of next item */}
+                          <div className="w-16 flex-shrink-0"></div>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* Grid layout for larger screens */}
+                    <motion.div
+                      className="hidden lg:grid grid-cols-2  gap-4 max-w-sm lg:max-w-lg mx-auto"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.6, type: "spring", damping: 20 }}
+                    >
+                      {project.images
+                        .slice(0, 4)
+                        .map((image: string, imgIndex: number) => (
+                          <motion.div
+                            key={imgIndex}
+                            initial={{ opacity: 0, scale: 0.6, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            transition={{
+                              type: "spring",
+                              damping: 20,
+                              stiffness: 100,
+                              delay: 0.7 + imgIndex * 0.1,
+                            }}
+                          >
+                            <DeviceMockup
+                              image={image}
+                              alt={`${project.title} screenshot ${
+                                imgIndex + 1
+                              }`}
+                              type={project.type}
+                              statusbarColor={project.statusbarColor}
+                            />
+                          </motion.div>
+                        ))}
+                    </motion.div>
+                  </>
                 )}
               </motion.div>
             </div>
