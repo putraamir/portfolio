@@ -109,7 +109,7 @@ export const ContactSection = ({ isActive }: SectionProps) => {
                 >
                   <span className="text-xl">
                     <Image
-                      src="/whatsapp.png"
+                      src="/WhatsApp.png"
                       alt="WhatsApp"
                       width={20}
                       height={20}
@@ -134,7 +134,7 @@ export const ContactSection = ({ isActive }: SectionProps) => {
                 >
                   <span className="text-xl">
                     <Image
-                      src="/gmail.png"
+                      src="/Gmail.png"
                       alt="Email"
                       width={20}
                       height={20}
@@ -160,7 +160,7 @@ export const ContactSection = ({ isActive }: SectionProps) => {
                 >
                   <span className="text-xl">
                     <Image
-                      src="/github.png"
+                      src="/Github.png"
                       alt="GitHub"
                       width={20}
                       height={20}
