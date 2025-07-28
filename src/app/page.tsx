@@ -15,8 +15,8 @@ import { useIsMobile } from "@/lib/useIsMobile";
 
 export default function Home() {
   const [currentSection, setCurrentSection] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isScrollingRef = useRef(false); // Use ref instead of state for immediate blocking
   const isMobile = useIsMobile();
 
   const sections = [
@@ -33,9 +33,13 @@ export default function Home() {
   // Debounced scroll handler
   const handleScroll = useCallback(
     (event: WheelEvent) => {
-      if (isScrolling) return;
+      event.preventDefault();
+      event.stopPropagation();
 
-      setIsScrolling(true);
+      // Use ref for immediate blocking
+      if (isScrollingRef.current) return;
+
+      isScrollingRef.current = true;
 
       const direction = event.deltaY > 0 ? 1 : -1;
 
@@ -45,29 +49,35 @@ export default function Home() {
       });
 
       // Reset scrolling flag after animation completes
-      setTimeout(() => setIsScrolling(false), 1000);
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 800); // Reduced timeout for better responsiveness
     },
-    [isScrolling, totalSections]
+    [totalSections]
   );
 
   // Keyboard navigation
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (isScrolling) return;
+      if (isScrollingRef.current) return;
 
       if (event.key === "ArrowDown" || event.key === " ") {
         event.preventDefault();
-        setIsScrolling(true);
+        isScrollingRef.current = true;
         setCurrentSection((prev) => Math.min(totalSections - 1, prev + 1));
-        setTimeout(() => setIsScrolling(false), 1000);
+        setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 800);
       } else if (event.key === "ArrowUp") {
         event.preventDefault();
-        setIsScrolling(true);
+        isScrollingRef.current = true;
         setCurrentSection((prev) => Math.max(0, prev - 1));
-        setTimeout(() => setIsScrolling(false), 1000);
+        setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 800);
       }
     },
-    [isScrolling, totalSections]
+    [totalSections]
   );
 
   // Add event listeners
@@ -75,11 +85,14 @@ export default function Home() {
     const container = containerRef.current;
     if (!container || isMobile) return;
 
-    container.addEventListener("wheel", handleScroll, { passive: false });
+    container.addEventListener("wheel", handleScroll, {
+      passive: false,
+      capture: true,
+    });
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      container.removeEventListener("wheel", handleScroll);
+      container.removeEventListener("wheel", handleScroll, { capture: true });
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleScroll, handleKeyDown, isMobile]);
@@ -106,10 +119,12 @@ export default function Home() {
             <button
               key={section}
               onClick={() => {
-                if (!isScrolling) {
-                  setIsScrolling(true);
+                if (!isScrollingRef.current) {
+                  isScrollingRef.current = true;
                   setCurrentSection(index);
-                  setTimeout(() => setIsScrolling(false), 1000);
+                  setTimeout(() => {
+                    isScrollingRef.current = false;
+                  }, 800);
                 }
               }}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${

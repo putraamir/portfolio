@@ -97,9 +97,9 @@ export const ProjectSection = ({
                 <Image
                   src={image}
                   alt={alt}
-                  width={1800}
-                  height={1125}
-                  className="object-contain w-full h-auto max-h-[160px]"
+                  width={400}
+                  height={200}
+                  className=" w-full h-auto"
                 />
               </div>
             </div>
