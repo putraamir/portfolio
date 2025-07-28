@@ -88,7 +88,7 @@ export const ProjectSection = ({
         <motion.div
           whileHover={{ scale: 1.02, rotateY: 5 }}
           transition={{ duration: 0.3, type: "spring" }}
-          className="w-full max-w-7xl mx-auto"
+          className="mx-auto"
         >
           {/* Custom laptop frame */}
           <div className="relative bg-gray-800 rounded-xl p-3 shadow-2xl">
@@ -263,7 +263,7 @@ export const ProjectSection = ({
                     transition={{ delay: 0.6, type: "spring", damping: 20 }}
                   >
                     <div
-                      className="overflow-x-auto scrollbar-hide"
+                      className="overflow-x-auto scrollbar-hide "
                       onWheel={(e) => {
                         e.preventDefault();
                         e.stopPropagation();

@@ -24,7 +24,7 @@ export const HeroSection = ({ isActive }: SectionProps) => {
               className="text-center z-20"
             >
               <motion.h1
-                className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-4xl md:text-6xl lg:text-8xl font-sans py-2 md:py-10 relative z-20 font-bold tracking-tight"
+                className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-600 to-white text-4xl md:text-6xl lg:text-8xl font-sans py-2 md:py-10 relative z-20 font-bold tracking-tight"
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
@@ -51,7 +51,7 @@ export const HeroSection = ({ isActive }: SectionProps) => {
               </motion.div>
 
               <motion.p
-                className="max-w-2xl mx-auto text-sm md:text-lg text-neutral-700 dark:text-neutral-400 text-center leading-relaxed"
+                className="max-w-2xl mx-auto text-sm md:text-lg text-neutral-400 text-center leading-relaxed"
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
