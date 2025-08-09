@@ -29,6 +29,10 @@ export const ContactSection = ({ isActive }: SectionProps) => {
     window.location.href = `mailto:${EMAIL}`;
   };
 
+  const handleLinkedInClick = () => {
+    window.open("https://www.linkedin.com/in/putraamir", "_blank");
+  };
+
   return (
     <AnimatePresence mode="wait">
       {isActive && (
@@ -143,13 +147,37 @@ export const ContactSection = ({ isActive }: SectionProps) => {
                   Send Email
                 </motion.button>
 
-                <motion.a
+                <motion.button
                   variants={slideInRight}
                   transition={{
                     type: "spring",
                     damping: 20,
                     stiffness: 100,
                     delay: 0.2,
+                  }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleLinkedInClick}
+                  className="px-6 py-3 md:px-8 md:py-4 border-2 border-gray-600 text-gray-300 font-semibold rounded-full hover:border-white hover:text-white transition-all duration-300 text-sm md:text-base flex items-center gap-2"
+                >
+                  <span className="text-xl">
+                    <Image
+                      src="/LinkedIn.png"
+                      alt="LinkedIn"
+                      width={20}
+                      height={20}
+                    />
+                  </span>
+                  Connect
+                </motion.button>
+
+                <motion.a
+                  variants={slideInRight}
+                  transition={{
+                    type: "spring",
+                    damping: 20,
+                    stiffness: 100,
+                    delay: 0.3,
                   }}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
