@@ -93,13 +93,13 @@ export const ProjectSection = ({
           {/* Custom laptop frame */}
           <div className="relative bg-gray-800 rounded-xl p-3 shadow-2xl">
             <div className="bg-gray-900 rounded-lg p-1.5">
-              <div className="bg-black rounded-md overflow-hidden">
+              <div className="bg-black rounded-md">
                 <Image
                   src={image}
                   alt={alt}
                   width={400}
                   height={200}
-                  className=" w-full h-auto"
+                  className="w-full h-auto"
                 />
               </div>
             </div>
@@ -147,7 +147,7 @@ export const ProjectSection = ({
           transition={{ duration: 0.8, ease: "easeInOut" }}
           className="relative px-4 flex items-center z-30 min-h-screen"
         >
-          <div className="max-w-6xl mx-auto w-full">
+          <div className={`${isLG ? "px-4" : "px-24"} mx-auto w-full `}>
             <div
               className={`grid lg:grid-cols-2 gap-4 xl:gap:12 items-center ${
                 projectNumber % 2 === 0 ? "lg:grid-flow-col-dense" : ""
@@ -242,7 +242,7 @@ export const ProjectSection = ({
               <motion.div
                 className={`${
                   projectNumber % 2 === 0 ? "lg:col-start-1 lg:row-start-1" : ""
-                } flex items-center justify-center lg:mt-0`}
+                } flex items-center justify-center lg:mt-0 `}
                 initial={{
                   opacity: 0,
                   x: projectNumber % 2 === 1 ? 100 : -100,
@@ -280,9 +280,13 @@ export const ProjectSection = ({
                         e.stopPropagation();
                       }}
                     >
-                      <div className="flex gap-6 pb-4">
+                      <div
+                        className={`flex ${
+                          isLG ? "flex-row" : "flex-col"
+                        } gap-6 pb-4`}
+                      >
                         {project.images
-                          .slice(0, isLG ? 4 : 1)
+                          .slice(0, isLG ? 4 : 2)
                           .map((image: string, imgIndex: number) => (
                             <motion.div
                               key={imgIndex}
